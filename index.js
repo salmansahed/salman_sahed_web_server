@@ -3,7 +3,7 @@ const express = require("express");
 const app = express();
 const port = process.env.PORT || 5000;
 const cors = require("cors");
-const { MongoClient, ServerApiVersion } = require("mongodb");
+const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 
 const uri = process.env.MONGODB_URI;
 
@@ -28,6 +28,13 @@ async function run() {
     app.get("/projects", async (req, res) => {
       const cursor = projectCollection.find();
       const result = await cursor.toArray();
+      res.send(result);
+    });
+
+    app.get("/projects/:id", async (req, res) => {
+      const { id } = req.params;
+      const query = { _id: new ObjectId(id) };
+      const result = await projectCollection.findOne(query);
       res.send(result);
     });
 
