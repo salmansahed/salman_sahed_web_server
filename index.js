@@ -14,11 +14,16 @@ const client = new MongoClient(uri, {
     deprecationErrors: true,
   },
 });
+
 async function run() {
   try {
     // await client.connect();
     const db = client.db("Salman_Sahed");
     const projectCollection = db.collection("projects");
+
+    app.get("/", (req, res) => {
+      res.send("Salman  Sahed Server API");
+    });
 
     app.get("/projects", async (req, res) => {
       const cursor = projectCollection.find();
