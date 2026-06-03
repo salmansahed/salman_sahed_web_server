@@ -30,9 +30,9 @@ async function run() {
       res.send("Salman  Sahed Server API");
     });
 
-    // Get Project Data
+    // Get Latest 6 Projects Data
     app.get("/projects", async (req, res) => {
-      const cursor = projectCollection.find();
+      const cursor = projectCollection.find().sort({ _id: -1 }).limit(6);
       const result = await cursor.toArray();
       res.send(result);
     });
