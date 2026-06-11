@@ -37,6 +37,13 @@ async function run() {
       res.send(result);
     });
 
+    // Post Project Data
+    app.post("/projects", async (req, res) => {
+      const data = req.body;
+      const result = await projectCollection.insertOne(data);
+      res.send(result);
+    });
+
     // Get Single Project Data
     app.get("/projects/:id", async (req, res) => {
       const { id } = req.params;
